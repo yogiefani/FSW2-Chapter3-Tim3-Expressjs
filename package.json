@@ -1,0 +1,29 @@
+{
+  "name": "fsw2-chapter3-tim3-expressjs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yogiefani/FSW2-Chapter3-Tim3-Expressjs.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/yogiefani/FSW2-Chapter3-Tim3-Expressjs/issues"
+  },
+  "homepage": "https://github.com/yogiefani/FSW2-Chapter3-Tim3-Expressjs#readme",
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "express": "^4.21.0",
+    "morgan": "^1.10.0",
+    "nodemon": "^3.1.7",
+    "pg": "^8.13.0",
+    "pg-hstore": "^2.3.4",
+    "sequelize": "^6.37.4"
+  }
+}
