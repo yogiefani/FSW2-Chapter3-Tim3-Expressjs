@@ -3,6 +3,7 @@ const express = require("express");
 const app = express();
 
 const { product } = require("./models");
+const { category } = require("./models");
 
 const PORT = 3000;
 
@@ -11,6 +12,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 app.use("/api/v1/products", async (req, res) => {
+
     try {
         const allProduct = await product.findAll();
 
@@ -51,15 +53,49 @@ app.delete("/api/v1/product/:id", async (req, res) => {
     }
 });
 
+app.delete("/api/v1/categories/:id", async (req, res) => {
+  const id = req.params.id;
+
+  try {
+    const categoryToDelete = await category.findByPk(id);
+
+    if (!categoryToDelete) {
+      return res.status(404).json({
+        status: "Failed",
+        message: "Category not found!",
+        isSuccess: false,
+      });
+    }
+
+    await categoryToDelete.destroy();
+
+    return res.status(204).json({
+      status: "Success",
+      message: "Category deleted successfully!",
+      isSuccess: true,
+      data: null, 
+    });
+  } catch (error) {
+    return res.status(500).json({
+      status: "Error",
+      message: "Failed to delete category data!",
+      isSuccess: false,
+      error: error.message,
+    });
+  }
+});
+
 app.use("/", async (req, res) => {
     res.status(200).json({
         status: true,
         message: "Ping Successfully!",
     });
+
 });
 
 // middleware
 app.use((req, res, next) => {
+
     res.status(404).json({
         status: false,
         message: "URL Not Found",
@@ -70,4 +106,5 @@ app.use((req, res, next) => {
 app.listen(PORT, () => {
     const url = `http://localhost:${PORT}`;
     console.log(`Click to open:`, url);
+
 });
