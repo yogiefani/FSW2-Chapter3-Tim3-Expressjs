@@ -1,4 +1,4 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/Ender-Wiggin2019/ServiceLogos/main/Node.js/Node.js.png" width="400" alt="Laravel Logo"></a></p>
+<p align="center"><a href="https://nodejs.org/en" target="_blank"><img src="https://raw.githubusercontent.com/Ender-Wiggin2019/ServiceLogos/main/Node.js/Node.js.png" width="400" alt="NodeJS Logo"></a></p>
 &nbsp;
 
 <p align="center">
