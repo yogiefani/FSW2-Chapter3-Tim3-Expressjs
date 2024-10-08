@@ -31,7 +31,7 @@ app.get("/api/v1/products", async (req, res) => {
     }
 });
 
-app.get("/api/v1/products:id", async (req, res) => {
+app.get("/api/v1/product/:id", async (req, res) => {
     const productId = req.params.id;
 
     try {
