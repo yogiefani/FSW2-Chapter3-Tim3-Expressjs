@@ -11,7 +11,10 @@ const PORT = 3000;
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-app.use("/api/v1/products", async (req, res) => {
+
+
+app.get("/api/v1/products", async (req, res) => {
+
     try {
         const allProduct = await product.findAll();
 
@@ -20,6 +23,32 @@ app.use("/api/v1/products", async (req, res) => {
             message: "get All Product Successfully!",
             total: allProduct.length,
             data: allProduct,
+        });
+    } catch (error) {
+        return res.status(500).json({
+            status: false,
+            message: "Can't Fetch from Database",
+            error: error.message,
+        });
+    }
+});
+
+app.get("/api/v1/product/:id", async (req, res) => {
+    const productId = req.params.id;
+
+    try {
+        const { id } = req.params;
+        const productById = await product.findOne({ where: { id } });
+        if (!productById) {
+            return res.status(404).json({
+                status: false,
+                message: `Product with ID: ${id} not found`,
+            });
+        }
+        res.status(200).json({
+            status: true,
+            message: `Product with ID: ${id} fetched successfully!`,
+            data: productById,
         });
     } catch (error) {
         return res.status(500).json({
@@ -61,6 +90,34 @@ app.post("/api/v1/product/:id", async (req, res) => {
             status: false,
             message: "Failed to create product",
             error: error.message,
+        });
+    }
+});
+
+app.post('/api/v1/category', async (req, res) => {
+    const { category_name, description } = req.body;  
+    
+    if (!category_name || !description) {
+        return res.status(400).json({
+            "status": false,
+            "message": "Category Name and Description required "
+        });
+    }
+    try {
+        const newCategory = await category.create({
+            category_name: category_name,  
+            description: description
+        });
+        res.status(201).json({
+            "status": true,
+            "message": "Category Created Successfully!",
+            "data": newCategory
+        });
+    } catch (error) {
+        return res.status(500).json({
+            "status": false,
+            "message": "Failed to Create Category",
+            "error": error.message
         });
     }
 });
