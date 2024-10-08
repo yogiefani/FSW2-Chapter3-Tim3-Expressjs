@@ -55,8 +55,6 @@ app.get("/api/v1/products/:id", async (req, res) => {
 });
 
 app.post("/api/v1/products", async (req, res) => {
-    const id = req.params.id;
-
     try {
         const { name, price, stock } = req.body;
 
