@@ -94,6 +94,37 @@ app.delete("/api/v1/product/:id", async (req, res) => {
     }
 });
 
+app.post('/api/v1/category', async (req, res) => {
+    const { category_name, description } = req.body;  
+
+    
+    if (!category_name || !description) {
+        return res.status(400).json({
+            "status": false,
+            "message": "Category Name and Description required "
+        });
+    }
+
+    try {
+        const newCategory = await category.create({
+            category_name: category_name,  
+            description: description
+        });
+
+        res.status(201).json({
+            "status": true,
+            "message": "Category Created Successfully!",
+            "data": newCategory
+        });
+    } catch (error) {
+        return res.status(500).json({
+            "status": false,
+            "message": "Failed to Create Category",
+            "error": error.message
+        });
+    }
+});
+
 app.delete("/api/v1/categories/:id", async (req, res) => {
     const id = req.params.id;
 
