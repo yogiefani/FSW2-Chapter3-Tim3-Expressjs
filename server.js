@@ -198,7 +198,7 @@ app.delete("/api/v1/categories/:id", async (req, res) => {
 
         await categoryToDelete.destroy();
 
-        return res.status(204).json({
+        return res.status(200).json({
             status: "Success",
             message: "Category deleted successfully!",
             isSuccess: true,
