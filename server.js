@@ -11,7 +11,7 @@ const PORT = 3000;
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-app.use("/api/v1/products", async (req, res) => {
+app.get("/api/v1/products", async (req, res) => {
 
     try {
         const allProduct = await product.findAll();
