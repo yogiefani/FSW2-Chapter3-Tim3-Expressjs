@@ -66,6 +66,50 @@ app.post("/api/v1/product/:id", async (req, res) => {
     }
 });
 
+app.patch("/api/v1/product/:id", async(req,res)=>{
+    const id = req.params.id;
+
+    try {
+        const { name, price, stock } = req.body;
+
+        if (!name || !price || !stock) {
+            return res.status(400).json({
+                status: false,
+                message: "Name, Price, and Stock are required!"
+            });
+        }
+
+        const productToUpdate = await product.findByPk(id);
+
+        if (!productToUpdate) {
+            return res.status(404).json({
+                status: false,
+                message: "Product not found!"
+            });
+        }
+
+        const updateProduct = await productToUpdate.update({
+            name,
+            price,
+            stock
+        });
+
+        // Respond with success
+        res.status(200).json({
+            status: true,
+            message: "Product Updated Successfully!",
+            data: updateProduct,
+        });
+    } catch (error) {
+        // Handle any errors 
+        return res.status(500).json({
+            status: false,
+            message: "Failed to update product",
+            error: error.message,
+        });
+    }
+});
+
 app.delete("/api/v1/product/:id", async (req, res) => {
     try {
         const productId = req.params.id
