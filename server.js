@@ -31,6 +31,32 @@ app.get("/api/v1/products", async (req, res) => {
     }
 });
 
+app.get("/api/v1/products:id", async (req, res) => {
+    const productId = req.params.id;
+
+    try {
+        const { id } = req.params;
+        const productById = await product.findOne({ where: { id } });
+        if (!productById) {
+            return res.status(404).json({
+                status: false,
+                message: `Product with ID: ${id} not found`,
+            });
+        }
+        res.status(200).json({
+            status: true,
+            message: `Product with ID: ${id} fetched successfully!`,
+            data: productById,
+        });
+    } catch (error) {
+        return res.status(500).json({
+            status: false,
+            message: "Can't Fetch from Database",
+            error: error.message,
+        });
+    }
+});
+
 app.post("/api/v1/product/:id", async (req, res) => {
     const id = req.params.id;
 
