@@ -120,6 +120,46 @@ app.delete("/api/v1/categories/:id", async (req, res) => {
   }
 });
 
+app.patch("/api/v1/categories/:id", async(req,res)=>{
+    const id = req.params.id;
+    
+    try {
+        const categoryToUpdate = await category.findByPk(id);
+
+        // if category not found
+        if (!categoryToUpdate) {
+            return res.status(404).json({
+                status: "Failed",
+                message: "Category not found!",
+                isSuccess: false,
+            });
+        }
+
+        // object destructuring
+        const { category_name, description } = req.body;
+
+        // update category
+        await categoryToUpdate.update({
+            category_name: category_name || categoryToUpdate.category_name,
+            description: description || categoryToUpdate.description
+        });
+
+        return res.status(200).json({
+            status: "Success",
+            message: "Category updated successfully!",
+            isSuccess: true,
+            data: categoryToUpdate, // Mengembalikan data kategori yang telah diupdate
+        });
+    } catch (error) {
+        return res.status(500).json({
+            status: "Error",
+            message: "Failed to update category!",
+            isSuccess: false,
+            error: error.message,
+        });
+    }
+});
+
 app.use("/", async (req, res) => {
     res.status(200).json({
         status: true,
