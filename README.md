@@ -25,6 +25,9 @@
 
 note: if you cant do from number 5-7 you can try npx sequelize-cli instead of using sequelize
 
+### HOW WE WORK
+<p align="center"><a href="https://github.com/yogiefani/FSW2-Chapter3-Tim3-Expressjs" target="_blank"><img src="https://raw.githubusercontent.com/Urielchan/logosVtuberVER/refs/heads/main/pembagian.png" width="400" alt="Pembagian"></a></p>
+
 ### CONTRIBUTOR
 <hr>
 <p>1. Yogi Efani Yancandra</p>
