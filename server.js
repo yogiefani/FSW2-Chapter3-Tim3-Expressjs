@@ -31,6 +31,41 @@ app.use("/api/v1/products", async (req, res) => {
     }
 });
 
+app.post("/api/v1/product/:id", async (req, res) => {
+    const id = req.params.id;
+
+    try {
+        const { name, price, stock } = req.body;
+
+        if (!name || !price || !stock) {
+            return res.status(400).json({
+                status: false,
+                message: "Name, Price, and Stock are required!"
+            });
+        }
+
+        const newProduct = await product.create({
+            name,
+            price,
+            stock
+        });
+
+        // Respond with success
+        res.status(201).json({
+            status: true,
+            message: "Product Created Successfully!",
+            data: newProduct,
+        });
+    } catch (error) {
+        // Handle any errors
+        return res.status(500).json({
+            status: false,
+            message: "Failed to create product",
+            error: error.message,
+        });
+    }
+});
+
 app.delete("/api/v1/product/:id", async (req, res) => {
     try {
         const productId = req.params.id
